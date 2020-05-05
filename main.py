@@ -1,8 +1,8 @@
 import sys
-from db import Database
-from db_schema import CREATE_USERS, CREATE_PROJECTIONS, CREATE_RESERVATIONS, CREATE_MOVIES
+from root.db import Database
+from root.db_schema import CREATE_USERS, CREATE_PROJECTIONS, CREATE_RESERVATIONS, CREATE_MOVIES
 
-from index_view import welcome
+from root.index_view import welcome
 
 
 class Application:

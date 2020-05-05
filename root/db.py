@@ -1,6 +1,6 @@
 import sqlite3
 
-from settings import DB_NAME
+from root.settings import DB_NAME
 
 
 class Database:
