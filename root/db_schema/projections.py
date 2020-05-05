@@ -5,6 +5,6 @@ movie_id INTEGER NOT NULL,
 type VARCHAR(10) NOT NULL,
 date_p VARCHAR(10) NOT NULL,
 time_p VARCHAR(10) NOT NULL,
- FOREIGN KEY (movie_id) REFERENCES movies(id)
+ FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE
  );
  '''
