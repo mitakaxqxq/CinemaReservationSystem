@@ -15,7 +15,7 @@ class MovieGateway:
         '''
         self.db.cursor.execute(query, (title, rating))
 
-        get_movie_by_id_query = '''
+        get_movie_by_id_query = f'''
         SELECT id
         FROM movies
         WHERE title = {title} and rating = {rating};'''
