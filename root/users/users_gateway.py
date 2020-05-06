@@ -1,25 +1,47 @@
 from root.db import Database
 from .models import UserModel
 
+
 class UserGateway:
     def __init__(self):
-        self.model = UserModel()
+        self.model = UserModel
         self.db = Database()
 
     def create(self, *, username, password):
         self.model.validate(username, password)
 
+        hashed_password = self.model.hash_password(password)
+
         query = '''
         INSERT INTO users(username, password) VALUES(?,?);
         '''
 
-        self.db.cursor.execute(query, (username, password))  # TODO: create user query
+        self.db.cursor.execute(query, (username, hashed_password))
 
-        # TODO: What whould I return?
+        get_query = f'SELECT id FROM users WHERE username = "{username}"'
+        self.db.cursor.execute(get_query)
+        user_id = self.db.cursor.fetchone()[0]
         self.db.connection.commit()
-        self.db.connection.close()
 
-    def all(self):
-        raw_users = self.db.cursor.execute()  # TODO: Select all users
+        return self.model(id=user_id, username=username, password=hashed_password)
 
-        return [self.model(**row) for row in raw_users]
+    def login(self, *, username, password):
+        #self.db.cursor.execute('''SELECT * FROM users''')
+        #res = self.db.cursor.fetchall()
+        #print(res)
+        get_user_query = f'SELECT * FROM users WHERE username = "{username}"'
+        print(get_user_query)
+        self.db.cursor.execute(get_user_query)
+        raw_user = self.db.cursor.fetchone()
+
+        self.db.connection.commit()
+
+        if raw_user:
+            hashed_password = self.model.hash_password(password)
+            if hashed_password == raw_user[2]:
+                print(f'Welcome, user {raw_user[1]}')
+                return self.model(id=raw_user[0], username=raw_user[1], password=raw_user[2])
+            else:
+                raise ValueError('Wrong password!')
+        else:
+            raise ValueError('No such user!')
