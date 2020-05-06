@@ -17,10 +17,10 @@ VALUES (1, "3D", "2020-04-01", "19:10"),
 
 insert_into_users = '''
 INSERT INTO users(username, password)
-VALUES ("Martin Angelov", "****"),
-("Ivo Donchev", "****"),
-("Radoslav Georgiev", "****"),
-("Rositza Zlateva", "****");
+VALUES ("Kalin Petrov", "2a13d86ffeba54a4c5f04f1112e0068818e32812a27cb6bbd7934f60c64fd650"),
+("Ivan Ivanov", "8b2b146e58694903084e0a510e7ce302fee3cef6b9defbd87100777d76d278b7"),
+("Georgi Budov", "281807ba64ef115395e9980211f069690b5422a78459ef31f15142a41b826ade"),
+("Petar Dimitrov", "868a7dc455e3bcab3a8e66eb16e04c16fef756d043b183b2a07eda0dda6185c5");
 '''
 
 insert_into_reservations = '''
