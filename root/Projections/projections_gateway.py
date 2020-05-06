@@ -11,33 +11,39 @@ class ProjectionGateway:
         query = '''
         INSERT INTO projections(movie_id, type, date_p, time_p) VALUES(?,?,?,?,?);
         '''
-
         self.db.cursor.execute(query, (id, movie_id, type, date_p, time_p))
         self.db.connection.commit()
-        self.db.connection.close()
 
+    def select_movie_name_by_its_id(self, movie_id):
+        query = '''
+        SELECT name FROM movies WHERE id = ?;
+        '''
+
+        self.db.cursor.execute(query, (movie_id, ))
+        name = self.db.cursor.fetchone()[0]
+        self.db.connection.commit()
+        return name
 
     def get_projection_by_movie_id(self, movie_id):
         query = '''
         SELECT * FROM projections WHERE movie_id = ? ORDER BY date_p;
         '''
+
         self.db.cursor.execute(query, (movie_id, ))
         result = self.db.cursor.fetchall()
-        print(result)
-
         self.db.connection.commit()
-        self.db.connection.close()
         return result
 
     def get_projection_by_movie_id_and_date(self, movie_id, date):
 
-        query = '''
-        #SELECT * FROM projections WHERE movie_id = ? AND date_p like ? ORDER BY date_p;
+        query = f'''
+        SELECT * FROM projections WHERE movie_id = {movie_id} AND date_p like {date} ORDER BY date_p;
         '''
 
-        self.db.cursor.execute(query, (movie_id, date))
+        self.db.cursor.execute(query)
+        result = self.db.cursor.fetchall()
         self.db.connection.commit()
-        self.db.connection.close()
+        return result
 
 
 def main():
