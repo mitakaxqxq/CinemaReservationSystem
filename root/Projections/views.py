@@ -27,3 +27,11 @@ class ProjectionViews:
 [{proj[0]}] {proj[3]} {proj[4]} {proj[2]}
 ----------------------------------------------------
 ''')
+
+    def create(self):
+        print("Add new projection of a movie: ")
+        movie_id = input("Input movie id here: ")
+        date = input("Date of projection: ")
+        time = input("Add time of projection: ")
+        type = input("Add type of projection (for example 4D, 2D and etc.): ")
+        self.controller.create(movie_id, type, date, time)
