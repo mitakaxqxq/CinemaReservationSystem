@@ -1,6 +1,6 @@
 from root.db import Database
 from .models import UserModel
-
+import os
 
 class UserGateway:
     def __init__(self):
@@ -30,7 +30,7 @@ class UserGateway:
         #res = self.db.cursor.fetchall()
         #print(res)
         get_user_query = f'SELECT * FROM users WHERE username = "{username}"'
-        print(get_user_query)
+        #print(get_user_query)
         self.db.cursor.execute(get_user_query)
         raw_user = self.db.cursor.fetchone()
 
@@ -39,8 +39,10 @@ class UserGateway:
         if raw_user:
             hashed_password = self.model.hash_password(password)
             if hashed_password == raw_user[2]:
+                os.system('clear')
                 print(f'Welcome, user {raw_user[1]}')
-                return self.model(id=raw_user[0], username=raw_user[1], password=raw_user[2])
+                self.model(id=raw_user[0], username=raw_user[1], password=raw_user[2])
+                return raw_user
             else:
                 raise ValueError('Wrong password!')
         else:

@@ -6,6 +6,13 @@ class ProjectionViews:
     def __init__(self):
         self.controller = ProjectionContoller()
 
+    def show_all_projections(self):
+        all_projections = self.controller.show_all_projections()
+        print("           Show all projections             ")
+        for proj in all_projections:
+            print('--------------------------------------------')
+            print(f'''{proj[0]} {proj[1]} {proj[2]} {proj[3]}''')
+
     def show_projections(self):
         movie_id = input('Choose your movie id: ')
         date = input("You can choose date if you want: ")

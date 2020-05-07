@@ -35,7 +35,7 @@ class MovieGateway:
         all_movies = []
 
         for movie in raw_movies:
-            new_movie = self.model(movie_id=movie[0], title=movie[1], rating=movie[2])
+            new_movie = self.model(id=movie[0], title=movie[1], rating=movie[2])
             all_movies.append(new_movie)
 
-        return all_movies
+        return raw_movies

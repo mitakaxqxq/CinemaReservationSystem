@@ -46,6 +46,14 @@ class ProjectionGateway:
         self.db.connection.commit()
         return result
 
+    def all_projections_and_movies_names(self):
+        query = f'''
+        SELECT name, date_p, time_p, type FROM projections JOIN movies ON projections.movie_id = movies.id;
+        '''
+        self.db.cursor.execute(query)
+        result = self.db.cursor.fetchall()
+        self.db.connection.commit()
+        return result
 
 def main():
     pass

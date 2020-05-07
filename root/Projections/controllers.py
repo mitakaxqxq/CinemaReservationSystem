@@ -19,3 +19,7 @@ class ProjectionContoller:
 
     def create(self, movie_id, type, date, time):
         self.projections_gateway.create(movie_id, type, date, time)
+
+    def show_all_projections(self):
+        all_projections = self.projections_gateway.all_projections_and_movies_names()
+        return all_projections

@@ -1,4 +1,6 @@
 from .controllers import MovieController
+#from root.users.views import UserViews
+import os
 
 
 class MovieView:
@@ -7,5 +9,7 @@ class MovieView:
 
     def get_movies(self):
         all_movies = self.controller.show_all_movies()
+        print("             All Movies             ")
         for movie in all_movies:
-            print(movie)
+            print('------------------------------------------')
+            print(f'''[{movie[0]}] {movie[1]} {movie[2]}''')
