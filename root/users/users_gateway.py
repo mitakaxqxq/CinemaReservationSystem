@@ -47,3 +47,4 @@ class UserGateway:
                 raise ValueError('Wrong password!')
         else:
             raise ValueError('No such user!')
+

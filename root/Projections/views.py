@@ -32,8 +32,8 @@ class ProjectionViews:
             print(f'''
 ----------------------------------------------------
 [{proj[0]}] {proj[3]} {proj[4]} {proj[2]}
-----------------------------------------------------
-''')
+----------------------------------------------------''')
+        return movie_id
 
     def create(self):
         print("Add new projection of a movie: ")
@@ -42,3 +42,9 @@ class ProjectionViews:
         time = input("Add time of projection: ")
         type = input("Add type of projection (for example 4D, 2D and etc.): ")
         self.controller.create(movie_id, type, date, time)
+
+    def show_movie_name(self, movie_id):
+        name = self.controller.select_movie_name_by_its_id(movie_id)
+        return name
+
+    
