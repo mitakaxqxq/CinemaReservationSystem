@@ -55,6 +55,13 @@ class ProjectionGateway:
         self.db.connection.commit()
         return result
 
+    def get_information_for_current_projection(self, projection_id):
+        query = f'''SELECT date_p, time_p, type FROM projections WHERE id = ?;'''
+        self.db.cursor.execute(query, (projection_id))
+        result = self.db.cursor.fetchone()
+        self.db.connection.commit()
+        return result
+
 def main():
     pass
 
