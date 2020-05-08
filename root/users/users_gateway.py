@@ -8,6 +8,7 @@ class UserGateway:
         self.db = Database()
 
     def create(self, *, username, password):
+        self.db = Database()
         self.model.validate(username, password)
 
         hashed_password = self.model.hash_password(password)
@@ -17,24 +18,25 @@ class UserGateway:
         '''
 
         self.db.cursor.execute(query, (username, hashed_password))
+        self.db.connection.commit()
+        self.db.connection.close()
 
+        self.db = Database()
         get_query = f'SELECT id FROM users WHERE username = "{username}"'
         self.db.cursor.execute(get_query)
         user_id = self.db.cursor.fetchone()[0]
         self.db.connection.commit()
+        self.db.connection.close()
 
         return self.model(id=user_id, username=username, password=hashed_password)
 
     def login(self, *, username, password):
-        #self.db.cursor.execute('''SELECT * FROM users''')
-        #res = self.db.cursor.fetchall()
-        #print(res)
+        self.db = Database()
         get_user_query = f'SELECT * FROM users WHERE username = "{username}"'
-        #print(get_user_query)
         self.db.cursor.execute(get_user_query)
         raw_user = self.db.cursor.fetchone()
-
         self.db.connection.commit()
+        self.db.connection.close()
 
         if raw_user:
             hashed_password = self.model.hash_password(password)
