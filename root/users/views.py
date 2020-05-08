@@ -24,6 +24,7 @@ class UserViews:
         return self.controller.create_user(username=username, password=password)
 
     def show_list_of_commands(self, user_id):
+        all_comanads = ['help', 'show_projections', 'make_reservation', 'show_movies', 'exit', 'sign_out']
         options = f'''
 --------------------
 1. show_movies
@@ -34,10 +35,12 @@ class UserViews:
 --------------------
 4. help
 --------------------
-5. sing_out
+5. sign_out
     '''
         print(options)
         command = input('>Choose command: ')
+        while command not in all_comanads:
+            command = input('>Incorrect command, choose again: ')
         self.execute_commands(command, user_id)
 
     def execute_commands(self, command, user_id):
@@ -67,7 +70,7 @@ class UserViews:
         elif command == 'sign_out':
             print('Sign out')
 
-    def show_help_command(self):
+    def show_help_command(self, user_id):
         show_help = f'''
 ---------------------------------------------------------------------------
 |     Show Movies     |     Show Projections     |     Make Resrvation    |
@@ -81,7 +84,7 @@ class UserViews:
         exit = input('Write exit to return back: ')
         if exit == 'exit':
             os.system('clear')
-            self.show_list_of_commands()
+            self.show_list_of_commands(user_id)
 
     def show_movies(self):
         MovieView().get_movies()

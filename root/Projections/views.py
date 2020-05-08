@@ -22,17 +22,11 @@ class ProjectionViews:
             current_projections = self.controller.get_projection_by_movie_id(movie_id)
         else:
             current_projections = self.controller.get_projection_by_movie_id_and_date(movie_id, date)
-        print(f'''
-        ###################################################################
-        Projections for movie {name}:
-        ###################################################################
-        ''')
+        print(f''' Projections for movie {name}: ''')
 
         for proj in current_projections:
-            print(f'''
-----------------------------------------------------
-[{proj[0]}] {proj[3]} {proj[4]} {proj[2]}
-----------------------------------------------------''')
+            print(f'----------------------------------------------')
+            print(f'''[{proj[0]}] {proj[3]} {proj[4]} {proj[2]}''')
         return movie_id
 
     def create(self):
@@ -47,4 +41,6 @@ class ProjectionViews:
         name = self.controller.select_movie_name_by_its_id(movie_id)
         return name
 
-    
+    def get_inoformation_for_current_projection(self, projection_id):
+        info = self.controller.get_information_for_current_projection(projection_id)
+        return info

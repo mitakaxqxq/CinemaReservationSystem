@@ -10,20 +10,26 @@ class ReservationViews:
     def __init__(self):
         self.controller = ReservationContoller()
 
-
     def make_reservation(self, user_id):
         print("Let's make your reservation!")
         tickets = int(input('Input number of tickets you want: '))
+
         print('You can choose one of these movies: ')
         MovieView().get_movies()
         movie_id = ProjectionViews().show_projections()
+        
         projection_id = input('Choose projection_id: ')
         self.show_available_seats(projection_id)
+
         choosen_seats = self.choose_seats(tickets, projection_id)
         i = 0
-        while i < len(choosen_seats) - 1:
-            self.controller.create(user_id, projection_id, choosen_seats[i], choosen_seats[i + 1])
-            i =i + 2
+        self.show_final_reservation(movie_id, projection_id, choosen_seats)
+        
+        finalize = input("Input 'finalize' your final reservation: ")
+        if finalize == 'finalize':
+            while i < len(choosen_seats) - 1:
+                self.controller.create(user_id, projection_id, choosen_seats[i], choosen_seats[i + 1])
+                i = i + 2
 
     def show_available_seats(self, projection_id):
         taken_seats = self.controller.get_rows_and_cols(projection_id)
@@ -73,9 +79,14 @@ class ReservationViews:
         else:
             return True
 
-    def show_final_reservation(user_id, movie_id, choose_seats):
+    def show_final_reservation(self, movie_id, projection_id, choosen_seats):
         print("This is your reservation:")
         name = ProjectionViews().show_movie_name(movie_id)
         print(f'Movie name: {name} ')
-
-
+        info = ProjectionViews().get_inoformation_for_current_projection(projection_id)
+        print(f"Date and time: {info[0]} - {info[1]} - {info[2]}")
+        print("This is your seats: ")
+        i = 0
+        while i < len(choosen_seats) - 1:
+            print(f'({choosen_seats[i]}, {choosen_seats[i+1]})')
+            i = i + 2
