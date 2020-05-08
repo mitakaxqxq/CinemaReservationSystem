@@ -58,7 +58,7 @@ class UserViews:
 
         elif command == 'make_reservation':
             os.system('clear')
-            result = self.make_reservations(user_id)
+            self.make_reservations(user_id)
             os.system('clear')
             self.show_list_of_commands(user_id)
         elif command == 'show_movies':
@@ -76,9 +76,9 @@ class UserViews:
 ---------------------------------------------------------------------------
 |     Show Movies     |     Show Projections     |     Make Resrvation    |
 ---------------------------------------------------------------------------
-|Show all current     |   Show all projections   |   Make reservation for |
-|     movies .        |      for all movies.     |     movie you want to  |
-|                     |                          |           watch.       |
+|   Show all current  |   Show all projections   |   Make reservation for |
+|        movies.      |      for all movies.     |    the movie you want  |
+|                     |                          |        to watch.       |
 ---------------------------------------------------------------------------
     '''
         print(show_help)
