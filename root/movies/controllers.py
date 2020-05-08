@@ -10,4 +10,4 @@ class MovieController:
         return self.gateway.add_movie(title, rating)
 
     def show_all_movies(self):
-        return self.gateway.show_all_movies()
+        return self.gateway.show_movies()

@@ -8,20 +8,24 @@ class ReservationGateway:
         self.db = Database()
 
     def create(self, user_id, projection_id, row, col):
+        self.db = Database()
         query = '''
         INSERT INTO reservations(user_id, projection_id, row, col) VALUES(?,?,?,?);
         '''
         self.db.cursor.execute(query, (user_id, projection_id, row, col))
         print('Done.')
         self.db.connection.commit()
+        self.db.connection.close()
 
     def get_rows_and_cols(self, projection_id):
+        self.db = Database()
         query = '''
         SELECT row, col FROM reservations WHERE projection_id = ?;
         '''
         self.db.cursor.execute(query, (projection_id,))
         taken_seats = self.db.cursor.fetchall()
         self.db.connection.commit()
+        self.db.connection.close()
         return taken_seats
 
 
