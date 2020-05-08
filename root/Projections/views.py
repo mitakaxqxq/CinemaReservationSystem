@@ -14,7 +14,10 @@ class ProjectionViews:
             print(f'''{proj[0]} {proj[1]} {proj[2]} {proj[3]}''')
 
     def show_projections(self):
-        movie_id = input('Choose your movie id: ')
+        input_choice = input('Choose your movie id or cancel_reservation(write cancel): ')
+        if input_choice == 'cancel':
+            return input_choice
+        movie_id = int(input_choice)
         date = input("You can choose date if you want: ")
 
         name = self.controller.select_movie_name_by_its_id(movie_id)
