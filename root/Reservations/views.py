@@ -5,6 +5,7 @@ from .utils import print_hall
 from root.movies.views import MovieView
 from root.Projections.views import ProjectionViews
 from .colors import f
+from root.decorators import log_info
 
 
 class ReservationViews:
@@ -38,8 +39,9 @@ class ReservationViews:
         finalize = input("Input 'finalize' your final reservation or cancel_reservation(write 'cancel'): ")
         if finalize == 'finalize':
             while i < len(choosen_seats) - 1:
-                result = self.controller.create(user_id, projection_id, choosen_seats[i], choosen_seats[i + 1])
+                self.controller.create(user_id, projection_id, choosen_seats[i], choosen_seats[i + 1])
                 i = i + 2
+            self.make_final_reservation(movie_id, projection_id, choosen_seats)
             print('Thanks.')
             answer = input('Do you want to return to main menu - y/n: ')
             if answer == 'y':
@@ -101,8 +103,21 @@ class ReservationViews:
         print(f'Movie name: {name} ')
         info = ProjectionViews().get_inoformation_for_current_projection(projection_id)
         print(f"Date and time: {info[0]} - {info[1]} - {info[2]}")
-        print("This is your seats: ")
+        print("These are your seats: ")
         i = 0
         while i < len(choosen_seats) - 1:
             print(f'({choosen_seats[i]}, {choosen_seats[i+1]})')
             i = i + 2
+
+    @log_info
+    def make_final_reservation(self, movie_id, projection_id, choosen_seats):
+        name = ProjectionViews().show_movie_name(movie_id)
+        info = ProjectionViews().get_inoformation_for_current_projection(projection_id)
+        i = 0
+        string_of_seats = ""
+        while i < len(choosen_seats) - 1:
+            print(f'({choosen_seats[i]}, {choosen_seats[i+1]})')
+            string_of_seats += f'({choosen_seats[i]}, {choosen_seats[i+1]})'
+            string_of_seats += ' '
+            i = i + 2
+        return f'Name of movie: {name} Date and time: {info[0]} - {info[1]} - {info[2]} Seats: {string_of_seats}'
