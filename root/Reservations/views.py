@@ -1,9 +1,10 @@
-import sys
+import os
 from .controllers import ReservationContoller
 from .hall import hall
 from .utils import print_hall
 from root.movies.views import MovieView
 from root.Projections.views import ProjectionViews
+from .colors import f
 
 
 class ReservationViews:
@@ -11,25 +12,40 @@ class ReservationViews:
         self.controller = ReservationContoller()
 
     def make_reservation(self, user_id):
+        command = ''
         print("Let's make your reservation!")
-        tickets = int(input('Input number of tickets you want: '))
+        choice = input("Input number of tickets you want or cancel reservation(write 'cancel'): ")
+        if choice == 'cancel':
+            return choice
+        tickets = int(choice)
 
         print('You can choose one of these movies: ')
         MovieView().get_movies()
         movie_id = ProjectionViews().show_projections()
-        
-        projection_id = input('Choose projection_id: ')
+        if movie_id == 'cancel':
+            return movie_id
+
+        projection_id_choice = input("Choose projection_id  or cancel reservation(write 'cancel'): ")
+        if projection_id_choice == 'cancel':
+            return projection_id_choice
+        projection_id = projection_id_choice
         self.show_available_seats(projection_id)
 
         choosen_seats = self.choose_seats(tickets, projection_id)
         i = 0
         self.show_final_reservation(movie_id, projection_id, choosen_seats)
-        
-        finalize = input("Input 'finalize' your final reservation: ")
+
+        finalize = input("Input 'finalize' your final reservation or cancel_reservation(write 'cancel'): ")
         if finalize == 'finalize':
             while i < len(choosen_seats) - 1:
-                self.controller.create(user_id, projection_id, choosen_seats[i], choosen_seats[i + 1])
+                result = self.controller.create(user_id, projection_id, choosen_seats[i], choosen_seats[i + 1])
                 i = i + 2
+            print('Thanks.')
+            answer = input('Do you want to return to main menu - y/n: ')
+            if answer == 'y':
+                return finalize
+        elif finalize == 'cancel':
+            return finalize
 
     def show_available_seats(self, projection_id):
         taken_seats = self.controller.get_rows_and_cols(projection_id)
@@ -38,7 +54,7 @@ class ReservationViews:
             for j in range(1, 10):
                 create_tuple = (i, j)
                 if create_tuple in taken_seats:
-                    current_seats[i][j] = '✖'
+                    current_seats[i][j] = f'{f.r}✖{f.e}'
         print_hall(current_seats)
 
     def find_spots(self, projection_id):
