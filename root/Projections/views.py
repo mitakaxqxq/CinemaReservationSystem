@@ -39,8 +39,8 @@ class ProjectionViews:
         movie_id = input("Input movie id here: ")
         date = input("Date of projection: ")
         time = input("Add time of projection: ")
-        type = input("Add type of projection (for example 4D, 2D and etc.): ")
-        self.controller.create(movie_id, type, date, time)
+        projection_type = input("Add type of projection (for example 4D, 2D and etc.): ")
+        self.controller.create(movie_id, projection_type, date, time)
 
     def show_movie_name(self, movie_id):
         name = self.controller.select_movie_name_by_its_id(movie_id)
