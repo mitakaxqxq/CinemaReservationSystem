@@ -19,12 +19,12 @@ class MovieGateway:
         self.db.connection.close()
 
         self.db = Database()
-        get_movie_by_id_query = f'''
+        get_movie_by_id_query = '''
         SELECT id
         FROM movies
-        WHERE title = {title} and rating = {rating};'''
+        WHERE title = ? and rating = ?;'''
 
-        self.db.cursor.execute(get_movie_by_id_query)
+        self.db.cursor.execute(get_movie_by_id_query, (title, rating))
         movie_id = self.db.cursor.fetchone()[0]
 
         self.db.connection.commit()
@@ -41,7 +41,7 @@ class MovieGateway:
         all_movies = []
 
         for movie in raw_movies:
-            new_movie = self.model(id=movie[0], title=movie[1], rating=movie[2])
+            new_movie = self.model(movie_id=movie[0], title=movie[1], rating=movie[2])
             all_movies.append(new_movie)
 
         return raw_movies

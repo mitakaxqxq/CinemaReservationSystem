@@ -1,6 +1,4 @@
 from .controllers import MovieController
-#from root.users.views import UserViews
-import os
 
 
 class MovieView:
