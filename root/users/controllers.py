@@ -7,8 +7,8 @@ class UserContoller:
 
     def create_user(self, username, password):
         user = self.users_gateway.create(username=username, password=password)
+        return user
 
-        # send username
-        # sync with Slack
-
+    def login_user(self, username, password):
+        user = self.users_gateway.login(username=username, password=password)
         return user

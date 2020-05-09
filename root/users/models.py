@@ -1,4 +1,6 @@
-import re
+import hashlib
+from .validations import validate_username, validate_password
+
 
 class UserModel:
     def __init__(self, *, id, username, password):
@@ -8,18 +10,12 @@ class UserModel:
 
     @staticmethod
     def validate(username, password):
-        # TODO: Implement a validation -> Raise an error
+        validate_username(username)
+        validate_password(password)
 
-        '''
-        if len(password) < 8:
-            raise ValueError("Password must be more than 8 symbols!")
-        special_symbol = re.compile("[@,!,#,$,%,^,&,*,(,),-,_]")
-        capital_letter = re.compile("[A-Z]")
-        if not special_symbol.search(password):
-            raise ValueError("Password must have one special symbol!")
-        if not capital_letter.search(password):
-            raise ValueError("Password must have one capital letter!")
-        '''
+    @staticmethod
+    def hash_password(password):
+        password = hashlib.sha256(password.encode("utf-8")).hexdigest()
+        return password
 
-
-#UserModel.validate('rrrr', 'aAde@rerrr')
+#print(UserModel(id=1, username='rrrr', password='aAde@rerrr').hash_password('aAde@rerrr'))
