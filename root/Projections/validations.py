@@ -1,5 +1,5 @@
-def validate_id(id):
-    if not isinstance(id, int):
+def validate_id(projection_id):
+    if not isinstance(projection_id, int):
         return TypeError("Id must be integer!")
 
 

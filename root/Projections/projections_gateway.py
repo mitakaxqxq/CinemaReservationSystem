@@ -7,12 +7,12 @@ class ProjectionGateway:
         self.model = ProjectionModel
         self.db = Database()
 
-    def create(self, movie_id, type, date_p, time_p):
+    def create(self, movie_id, projection_type, date_p, time_p):
         self.db = Database()
         query = '''
         INSERT INTO projections(movie_id, type, date_p, time_p) VALUES(?,?,?,?);
         '''
-        self.db.cursor.execute(query, (movie_id, type, date_p, time_p))
+        self.db.cursor.execute(query, (movie_id, projection_type, date_p, time_p))
         print('Done.')
         self.db.connection.commit()
         self.db.connection.close()
