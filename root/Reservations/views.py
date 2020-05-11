@@ -1,5 +1,4 @@
-import os
-from .controllers import ReservationContoller
+from .controllers import ReservationController
 from .hall import hall
 from .utils import print_hall
 from root.movies.views import MovieView
@@ -10,32 +9,44 @@ from root.decorators import log_info
 
 class ReservationViews:
     def __init__(self):
-        self.controller = ReservationContoller()
+        self.controller = ReservationController()
 
     def make_reservation(self, user_id):
-        command = ''
+        tickets = self.start_reservation()
+        if tickets == 'cancel':
+            return None
+        movie_id = self.choose_movie()
+        if movie_id == 'cancel':
+            return None
+        projection_id = self.choose_projection(movie_id)
+        if projection_id == 'cancel':
+            return None
+        finalize = self.reservating_seats(user_id, movie_id, tickets, projection_id)
+        return finalize
+
+    def start_reservation(self):
         print("Let's make your reservation!")
         choice = input("Input number of tickets you want or cancel reservation(write 'cancel'): ")
-        if choice == 'cancel':
-            return choice
-        tickets = int(choice)
+        tickets = self.string_to_int(choice)
+        return tickets
 
+    def choose_movie(self):
         print('You can choose one of these movies: ')
         MovieView().get_movies()
-        movie_id = ProjectionViews().show_projections()
-        if movie_id == 'cancel':
-            return movie_id
+        input_choice = input('Choose your movie id or cancel_reservation(write cancel): ')
+        movie_id = self.string_to_int(input_choice)
+        return movie_id
 
-        projection_id_choice = input("Choose projection_id  or cancel reservation(write 'cancel'): ")
-        if projection_id_choice == 'cancel':
-            return projection_id_choice
-        projection_id = projection_id_choice
+    def choose_projection(self, input_choice):
+        ProjectionViews().show_projections(input_choice)
+        projection_id = input("Choose projection_id  or cancel reservation(write 'cancel'): ")
+        return projection_id
+
+    def reservating_seats(self, user_id, movie_id, tickets, projection_id):
         self.show_available_seats(projection_id)
-
         choosen_seats = self.choose_seats(tickets, projection_id)
         i = 0
         self.show_final_reservation(movie_id, projection_id, choosen_seats)
-
         finalize = input("Input 'finalize' your final reservation or cancel_reservation(write 'cancel'): ")
         if finalize == 'finalize':
             while i < len(choosen_seats) - 1:
@@ -48,6 +59,13 @@ class ReservationViews:
                 return finalize
         elif finalize == 'cancel':
             return finalize
+
+    def string_to_int(self, value):
+        if value == 'cancel':
+            return value
+        else:
+            int_value = int(value)
+            return int_value
 
     def show_available_seats(self, projection_id):
         taken_seats = self.controller.get_rows_and_cols(projection_id)
