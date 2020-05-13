@@ -18,7 +18,7 @@ class ReservationViews:
         movie_id = self.choose_movie()
         if movie_id == 'cancel':
             return None
-        projection_id = self.choose_projection(movie_id)
+        projection_id = self.choose_projection()
         if projection_id == 'cancel':
             return None
         finalize = self.reservating_seats(user_id, movie_id, tickets, projection_id)
@@ -37,8 +37,8 @@ class ReservationViews:
         movie_id = self.string_to_int(input_choice)
         return movie_id
 
-    def choose_projection(self, input_choice):
-        ProjectionViews().show_projections(input_choice)
+    def choose_projection(self):
+        ProjectionViews().show_projections()
         projection_id = input("Choose projection_id  or cancel reservation(write 'cancel'): ")
         return projection_id
 

@@ -27,8 +27,8 @@ class Application:
 
     @classmethod
     def start(self):
-        #while True:
-        welcome()
+        while True:
+            welcome()
 
 
 if __name__ == '__main__':

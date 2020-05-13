@@ -2,7 +2,6 @@ from root.users.views import UserViews
 
 
 def welcome():
-    print('Welcome to HackCinema!')
     command = int(input('Choose a command:\n  1 - log in\n  2 - sign up\n  Input: '))
     user_views = UserViews()
 

@@ -1,7 +1,7 @@
 from .reservations_gateway import ReservationGateway
 
 
-class ReservationContoller:
+class ReservationController:
     def __init__(self):
         self.reservations_gateway = ReservationGateway()
 
