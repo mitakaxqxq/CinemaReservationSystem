@@ -1,4 +1,3 @@
-import sys
 from .controllers import ProjectionContoller
 
 

@@ -13,6 +13,7 @@ class UserViews:
     def login(self):
         username = input('Username: ')
         password = input('Password: ')
+        print(list(password))
         result = self.controller.login_user(username=username, password=password)
         user_id = self.get_id(result)
         self.show_list_of_commands(user_id)

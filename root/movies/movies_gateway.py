@@ -9,22 +9,25 @@ class MovieGateway:
         self.db = Database()
 
     def add_movie(self, title, rating):
-        self.db = Database()
+        self.db.create_connection()
+        self.db.connect_cursor()
+
         query = '''
         INSERT INTO movies (title, rating)
         VALUES (?, ?);
         '''
-        self.db.cursor.execute(query, (title, rating))
+        self.db.cursor.execute(query, (title, rating,))
         self.db.connection.commit()
         self.db.connection.close()
 
-        self.db = Database()
+        self.db.create_connection()
+        self.db.connect_cursor()
         get_movie_by_id_query = '''
         SELECT id
         FROM movies
         WHERE title = ? and rating = ?;'''
 
-        self.db.cursor.execute(get_movie_by_id_query, (title, rating))
+        self.db.cursor.execute(get_movie_by_id_query, (title, rating,))
         movie_id = self.db.cursor.fetchone()[0]
 
         self.db.connection.commit()
@@ -32,7 +35,9 @@ class MovieGateway:
         return self.model(movie_id=movie_id, title=title, rating=rating)
 
     def show_movies(self):
-        self.db = Database()
+        self.db.create_connection()
+        self.db.connect_cursor()
+
         self.db.cursor.execute(select_all_movies_and_order_by_rating)
         raw_movies = self.db.cursor.fetchall()
 
