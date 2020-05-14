@@ -1,7 +1,7 @@
 from .controllers import UserContoller
-from root.Projections.views import ProjectionViews
+from root.projections.views import ProjectionViews
 from root.movies.views import MovieView
-from root.Reservations.views import ReservationViews
+from root.reservations.views import ReservationViews
 
 import os
 
