@@ -15,7 +15,7 @@ class TestValidateNicknameFunction(unittest.TestCase):
             exc = err
 
         self.assertIsNotNone(exc)
-        self.assertEqual(str(exc), 'Username character { is not in allowed symbols!')
+        self.assertEqual(str(exc), 'A character is not in allowed symbols!')
 
 
 class TestValidatePasswordFunction(unittest.TestCase):
