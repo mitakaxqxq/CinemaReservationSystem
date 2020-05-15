@@ -2,7 +2,7 @@ from .controllers import ReservationController
 from .hall import hall
 from .utils import print_hall
 from root.movies.views import MovieView
-from root.Projections.views import ProjectionViews
+from root.projections.views import ProjectionViews
 from .colors import f
 from root.decorators import log_info
 
