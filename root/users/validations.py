@@ -9,7 +9,7 @@ def validate_username(username):
     available_symbols = list(smallcase_letters) + list(uppercase_letters) + list(numbers) + [' ']
     for character in username:
         if character not in available_symbols:
-            raise ValueError(f'Username character {character} is not in allowed symbols!')
+            raise ValueError('A character is not in allowed symbols!')
 
 
 def validate_password(password):
