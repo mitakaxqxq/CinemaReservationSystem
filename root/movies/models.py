@@ -1,11 +1,19 @@
-from .validations import validate_movie_id, validate_title, validate_rating
+from .validations import validate_title, validate_rating
+from sqlalchemy import Column, Integer, String, Float
+import sys
+sys.path.append('..')
 
 
-class MovieModel:
-    def __init__(self, *, movie_id, title, rating):
-        validate_movie_id(movie_id)
-        validate_title(title)
+from db import Base
+
+
+class Movies(Base):
+    __tablename__ = 'movies'
+    movie_id = Column(Integer, primary_key=True)
+    title = Column(String)
+    rating = Column(Float)
+
+    @staticmethod
+    def validate(name, rating):
+        validate_title(name)
         validate_rating(rating)
-        self.id = movie_id
-        self.title = title
-        self.rating = rating
