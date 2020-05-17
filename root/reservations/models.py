@@ -1,12 +1,8 @@
 from sqlalchemy import Column, Integer, CheckConstraint, ForeignKey
 from sqlalchemy.orm import relationship
-import sys
-sys.path.append('..')
-
-
-from db import Base
-from users.models import UserModel
-from projections.models import ProjectionModel
+from root.db import Base
+from root.users.models import UserModel
+from root.projections.models import ProjectionModel
 
 
 class ReservationModel(Base):

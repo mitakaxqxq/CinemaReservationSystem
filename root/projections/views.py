@@ -19,18 +19,18 @@ class ProjectionViews:
         movie_id = int(input_choice)
         result = self.controller.get_projection_by_movie_id(movie_id)
         for elem in result:
-            print(elem[3], elem[4])
+            print(elem.date_p, elem.time_p)
         date = input("Above are the possible dates. If you want to choose date, write the date, if not, press enter. ")
         name = self.controller.select_movie_name_by_its_id(movie_id)
         if date == '':
             current_projections = self.controller.get_projection_by_movie_id(movie_id)
         else:
             current_projections = self.controller.get_projection_by_movie_id_and_date(movie_id, date)
-        print(f''' Projections for movie {name}: ''')
+        print(f''' Projections for movie {name.title}: ''')
 
         for proj in current_projections:
             print(f'----------------------------------------------')
-            print(f'''[{proj[0]}] {proj[3]} {proj[4]} {proj[2]}''')
+            print(f'''[{proj.projection_id}] {proj.date_p} {proj.time_p} {proj.projection_type}''')
         return movie_id
 
     def create(self):

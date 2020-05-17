@@ -1,5 +1,5 @@
-from db import Base, Session
-from models import ReservationModel
+from root.db import Base, Session
+from .models import ReservationModel
 
 
 class ReservationGateway:
@@ -9,18 +9,21 @@ class ReservationGateway:
 
     def create(self, user_id, projection_id, row, col):
         self.session = Session()
-        reservation = ReservationModel(user_id, projection_id, row, col,)
+        reservation = ReservationModel(user_id=user_id, projection_id=projection_id, row=row, col=col)
         self.session.add(reservation)
+        self.session.commit()
         raw_reservation = self.session.query(
             ReservationModel.reservation_id).filter(ReservationModel.user_id == user_id).filter(
             ReservationModel.projection_id == projection_id).filter(
-            ReservationModel.row == row).filter(ReservationModel.col == col)
+            ReservationModel.row == row).filter(ReservationModel.col == col).one()
+        self.session.close()
         return raw_reservation
 
     def get_rows_and_cols(self, projection_id):
         self.session = Session()
         taken_seats = self.session.query(ReservationModel.row, ReservationModel.col).filter(
-            ReservationModel.projection_id == projection_id)
+            ReservationModel.projection_id == projection_id).all()
+        self.session.close()
         return taken_seats
 
 

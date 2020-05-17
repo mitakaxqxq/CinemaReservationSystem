@@ -1,13 +1,10 @@
 import hashlib
 from sqlalchemy import Column, String, Integer
-from validations import validate_username, validate_password
-import sys
-sys.path.append('..')
-
-from db import Database
+from .validations import validate_username, validate_password
+from root.db import Base
 
 
-class UserModel(Database.Base):
+class UserModel(Base):
     __tablename__ = 'users'
     user_id = Column(Integer, primary_key=True)
     username = Column(String)

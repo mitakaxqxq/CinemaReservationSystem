@@ -53,9 +53,11 @@ class UserViews:
             os.system('clear')
             self.show_projections()
             exit = input('Write exit to return back: ')
-            if exit == 'exit':
-                os.system('clear')
-                self.show_list_of_commands(user_id)
+            while exit != 'exit':
+                print('Invalid command!')
+                exit = input('Write exit to return back: ')
+            os.system('clear')
+            self.show_list_of_commands(user_id)
 
         elif command == 'make_reservation':
             os.system('clear')
@@ -84,9 +86,11 @@ class UserViews:
     '''
         print(show_help)
         exit = input('Write exit to return back: ')
-        if exit == 'exit':
-            os.system('clear')
-            self.show_list_of_commands(user_id)
+        while exit != 'exit':
+            print('Invalid command!')
+            exit = input('Write exit to return back: ')
+        os.system('clear')
+        self.show_list_of_commands(user_id)
 
     def show_movies(self):
         MovieView().get_movies()
@@ -95,7 +99,7 @@ class UserViews:
         ProjectionViews().show_all_projections()
 
     def get_id(self, user):
-        return user[0]
+        return user.username
 
     def make_reservations(self, user_id):
         ReservationViews().make_reservation(user_id)

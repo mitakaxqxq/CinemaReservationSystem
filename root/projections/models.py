@@ -1,12 +1,8 @@
 from .validations import *
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
-import sys
-sys.path.append('..')
-
-
-from db import Base
-from movies import MovieModel
+from root.db import Base
+from root.movies import MovieModel
 
 
 class ProjectionModel(Base):

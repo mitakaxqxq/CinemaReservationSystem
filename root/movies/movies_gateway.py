@@ -1,5 +1,5 @@
-from db import Base, Session
 from .models import MovieModel
+from root.db import Base, Session
 
 
 class MovieGateway:
@@ -13,7 +13,8 @@ class MovieGateway:
         self.session.add(movie)
         self.session.commit()
 
-        raw_movie = self.session.query(MovieModel).filter(MovieModel.title == title).filter(MovieModel.rating == rating)
+        raw_movie = self.session.query(MovieModel).filter(
+            MovieModel.title == title).filter(MovieModel.rating == rating).one()
         return raw_movie
 
     def show_movies(self):

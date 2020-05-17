@@ -118,9 +118,9 @@ class ReservationViews:
     def show_final_reservation(self, movie_id, projection_id, choosen_seats):
         print("This is your reservation:")
         name = ProjectionViews().show_movie_name(movie_id)
-        print(f'Movie name: {name} ')
+        print(f'Movie name: {name.title} ')
         info = ProjectionViews().get_inoformation_for_current_projection(projection_id)
-        print(f"Date and time: {info[0]} - {info[1]} - {info[2]}")
+        print(f"Date and time: {info.date_p} - {info.time_p} - {info.projection_type}")
         print("These are your seats: ")
         i = 0
         while i < len(choosen_seats) - 1:
@@ -138,4 +138,5 @@ class ReservationViews:
             string_of_seats += f'({choosen_seats[i]}, {choosen_seats[i+1]})'
             string_of_seats += ' '
             i = i + 2
-        return f'Name of movie: {name} Date and time: {info[0]} - {info[1]} - {info[2]} Seats: {string_of_seats}'
+        return f'Name of movie: {name.title} Date and time:\
+        {info.date_p} - {info.time_p} - {info.projection_type} Seats: {string_of_seats}'

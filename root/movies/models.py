@@ -4,10 +4,10 @@ import sys
 sys.path.append('..')
 
 
-from db import Base
+from root.db import Base
 
 
-class Movies(Base):
+class MovieModel(Base):
     __tablename__ = 'movies'
     movie_id = Column(Integer, primary_key=True)
     title = Column(String)
