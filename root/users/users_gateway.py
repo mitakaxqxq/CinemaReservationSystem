@@ -10,14 +10,15 @@ class UserGateway:
 
     def create(self, *, username, password):
         self.session = Session()
-        UserModel.validate(username, password)
+        UserModel.validate_values(username, password)
 
         hashed_password = UserModel.hash_password(password)
-        user = UserModel(username, hashed_password)
+        user = UserModel(username=username, password=hashed_password)
         self.session.add(user)
         self.session.commit()
 
-        raw_user = self.session.query(UserModel).filter(UserModel.username == username)
+        raw_user = self.session.query(UserModel).filter(UserModel.username == username).one()
+        self.session.close()
         return raw_user
 
     def login(self, *, username, password):

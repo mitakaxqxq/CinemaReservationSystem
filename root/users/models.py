@@ -18,3 +18,6 @@ class UserModel(Base):
     def hash_password(password):
         password = hashlib.sha256(password.encode("utf-8")).hexdigest()
         return password
+
+    def __eq__(self, other):
+        return self.username == other.username and self.password == other.password
