@@ -41,6 +41,3 @@ jobs:
     - name: main.py build
       run: |
         python main.py build
-    - name: main.py start
-      run: |
-        python main.py start
