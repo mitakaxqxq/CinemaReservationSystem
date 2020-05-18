@@ -13,7 +13,7 @@ class ReservationGateway:
         self.session.add(reservation)
         self.session.commit()
         raw_reservation = self.session.query(
-            ReservationModel.reservation_id).filter(ReservationModel.user_id == user_id).filter(
+            ReservationModel).filter(ReservationModel.user_id == user_id).filter(
             ReservationModel.projection_id == projection_id).filter(
             ReservationModel.row == row).filter(ReservationModel.col == col).one()
         self.session.close()

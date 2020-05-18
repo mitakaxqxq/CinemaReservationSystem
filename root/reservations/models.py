@@ -14,3 +14,7 @@ class ReservationModel(Base):
     projection = relationship(ProjectionModel, backref='reservations')
     row = Column(Integer, CheckConstraint('row>0 and row<10'))
     col = Column(Integer, CheckConstraint('col>0 and col<10'))
+
+    def __eq__(self, other):
+        return self.user_id == other.user_id and self.projection_id == other.projection_id and self.row == other.row and self.col == other.col
+
