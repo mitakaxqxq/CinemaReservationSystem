@@ -15,6 +15,11 @@ class TestReservationGateway(unittest.TestCase):
         expected = ReservationModel(user_id=1, projection_id=7, row=4, col=4)
         self.assertEqual(result, expected)
 
+    def test_get_row_and_cols(self):
+        reservation_gateway = ReservationGateway()
+        result = reservation_gateway.get_rows_and_cols(7)
+        expected = [(4, 4)]
+        self.assertEqual(result, expected)
 
     @classmethod
     def tearDown(cls):
