@@ -1,6 +1,7 @@
 from root.db import Base, Session
 from root.movies.models import MovieModel
 from .models import ProjectionModel
+from sqlalchemy import desc
 
 
 class ProjectionGateway:
@@ -10,7 +11,7 @@ class ProjectionGateway:
 
     def create(self, movie_id, projection_type, date_p, time_p):
         self.session = Session()
-        projection = ProjectionModel(movie_id, projection_type, date_p, time_p)
+        projection = ProjectionModel(movie_id=movie_id, projection_type=projection_type, date_p=date_p, time_p=time_p)
         self.session.add(projection)
         self.session.commit()
 
@@ -42,7 +43,7 @@ class ProjectionGateway:
         self.session = Session()
         result = self.session.query(ProjectionModel).filter(
             ProjectionModel.movie_id == movie_id).filter(
-            ProjectionModel.date_p == date).desc(ProjectionModel.date_p).all()
+            ProjectionModel.date_p == date).order_by(desc(ProjectionModel.date_p)).all()
         self.session.close()
         return result
 
