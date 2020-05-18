@@ -1,9 +1,5 @@
 import unittest
-import sys
-
-sys.path.append('..')
-
-from validations import validate_username, validate_password
+from ..validations import validate_username, validate_password
 
 
 class TestValidateNicknameFunction(unittest.TestCase):

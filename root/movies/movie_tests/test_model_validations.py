@@ -1,8 +1,5 @@
 import unittest
-import sys
-
-sys.path.append('..')
-from validations import validate_movie_id, validate_rating, validate_title
+from ..validations import validate_movie_id, validate_rating, validate_title
 
 
 class TestMovieIDValidation(unittest.TestCase):

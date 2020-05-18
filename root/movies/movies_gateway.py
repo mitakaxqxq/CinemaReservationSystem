@@ -9,14 +9,17 @@ class MovieGateway:
 
     def add_movie(self, title, rating):
         self.session = Session()
-        movie = MovieModel(title, rating)
+        movie = MovieModel(title=title, rating=rating)
         self.session.add(movie)
         self.session.commit()
 
         raw_movie = self.session.query(MovieModel).filter(
             MovieModel.title == title).filter(MovieModel.rating == rating).one()
+        self.session.close()
         return raw_movie
 
     def show_movies(self):
-        all_movies = self.session.query(MovieModel.movie_id, MovieModel.title, MovieModel.rating).all()
+        self.session = Session()
+        all_movies = self.session.query(MovieModel).all()
+        self.session.close()
         return all_movies

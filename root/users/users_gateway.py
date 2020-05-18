@@ -23,12 +23,9 @@ class UserGateway:
     def login(self, *, username, password):
         self.session = Session()
         raw_user = self.session.query(UserModel).filter(UserModel.username == username).one()
-        print(raw_user)
         if raw_user:
             hashed_password = UserModel.hash_password(password)
-            print(hashed_password)
             result = self.session.query(UserModel.password).filter(UserModel.username == username).one()
-            print(result)
             if hashed_password == result[0]:
                 os.system('clear')
                 print(f'Welcome, user {raw_user.username}')
