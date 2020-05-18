@@ -18,10 +18,10 @@ class TestProjectionGateway(unittest.TestCase):
         session.add(ProjectionModel(movie_id=2, projection_type="2D", date_p="2020-04-01", time_p="19:00"))
         session.commit()
 
-    def test_add_projection_method(self):
+    def test_create_method(self):
         projection_gateway = ProjectionGateway()
-        result = projection_gateway.create(1, "4D", "2020-04-01", "19:10")
-        expected = ProjectionModel(movie_id=1, projection_type="4D", date_p="2020-04-01", time_p="19:10")
+        result = projection_gateway.create(1, "4D", "2020-04-02", "19:10")
+        expected = ProjectionModel(movie_id=1, projection_type="4D", date_p="2020-04-02", time_p="19:10")
         self.assertEqual(result, expected)
 
     def test_select_movie_name_by_its_id_method(self):
